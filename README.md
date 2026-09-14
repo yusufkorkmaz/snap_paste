@@ -32,13 +32,7 @@ Gereksinimler: **macOS 13 Ventura veya üzeri**, Apple Silicon ya da Intel (univ
 
 1. DMG'yi açın.
 2. `SnapPaste.app`'i `Applications` klasörüne sürükleyin.
-3. Uygulamayı açın.
-
-Alternatif olarak Terminal'de şunu çalıştırabilirsiniz:
-
-```bash
-bash "/Volumes/SnapPaste 1.0.0/Kur.command"
-```
+3. Uygulamayı açın. Uyarı çıkarsa aşağıdaki kutuya bakın. Aynı adımlar DMG içindeki **AÇILMAZSA BENİ OKU.txt** dosyasında da var.
 
 **B) ZIP ile:** `SnapPaste-1.0.0.zip`. Açın ve klasörün içinde şunu çalıştırın:
 
@@ -53,16 +47,20 @@ bash install.sh
 3. İndirme karantinasını kaldırır.
 4. Uygulamayı başlatır.
 
-> **"Apple doğrulayamadı / açılamıyor" uyarısı çıkarsa:** Uygulama ücretli bir Apple Developer ID ile noterize edilmediği için internetten, AirDrop'la veya mesajla aktarılan kopyalarda macOS bu uyarıyı verir. Çözüm yolları:
-> - `bash install.sh` veya `bash Kur.command` ile kurun (karantinayı kendisi kaldırır), **ya da**
-> - Terminal'de şunu çalıştırın:
->   ```bash
->   xattr -dr com.apple.quarantine /Applications/SnapPaste.app
->   ```
->   **ya da**
-> - Sistem Ayarları › Gizlilik ve Güvenlik › alttaki **"Yine de Aç"** düğmesine basın.
+> **"Apple, SnapPaste'in kötü amaçlı yazılım içermediğini doğrulayamadı" uyarısı:** Uygulama ücretli bir Apple Developer ID ile noterize edilmediği için macOS; AirDrop, mesaj, e-posta veya indirme ile aktarılan kopyayı ilk açılışta engeller. Bu uyarı bir hata değildir ve tek seferlik onay yeterlidir. İki yol var:
 >
-> USB bellekle aktarılan kopyalarda bu uyarı genelde çıkmaz.
+> **1. Terminal ile:** Aşağıdaki komutu çalıştırın. Komut yalnızca bu uygulamanın karantina etiketini kaldırır, genel güvenlik ayarlarını değiştirmez.
+> ```bash
+> xattr -dr com.apple.quarantine /Applications/SnapPaste.app && open /Applications/SnapPaste.app
+> ```
+>
+> **2. Terminal kullanmadan:**
+> 1. SnapPaste'i bir kez açmayı deneyin ve uyarıda "Bitti"ye basın.
+> 2. Sistem Ayarları › Gizlilik ve Güvenlik bölümünü açın.
+> 3. Sayfanın altında "SnapPaste engellendi" satırının yanındaki **"Yine de Aç"** düğmesine basın.
+> 4. Parolanızı girin ve çıkan pencerede tekrar **"Yine de Aç"** deyin.
+>
+> USB bellek veya harici diskle Finder üzerinden kopyalanan uygulamalarda bu uyarı genelde çıkmaz. Uyarının hiç çıkmaması için uygulamanın Apple Developer Program üyeliğiyle (yıllık 99 $) Developer ID imzası alıp noterize edilmesi gerekir.
 
 ### Kaynak koddan derleyerek
 
@@ -91,7 +89,7 @@ macOS, ekran görüntüsü alan her uygulamadan izin ister:
 bash dist/uninstall.sh
 ```
 
-Bu betik uygulamayı, önbelleği ve ayarları siler. DMG içindeki `Kaldir.command` da aynı işi yapar.
+Bu betik uygulamayı, önbelleği ve ayarları siler. İsterseniz sadece `/Applications/SnapPaste.app`'i çöpe de atabilirsiniz.
 
 ---
 
@@ -134,7 +132,7 @@ Bu komut sırasıyla şunları yapar:
    - gerçek `screencapture` ile uçtan uca tam ekran çekim
 2. Apple Silicon Mac'te aynı 59 testi **Intel (x86_64) için Rosetta altında** tekrar çalıştırır.
 3. **Universal release derlemesi** yapar; DMG ve ZIP üretir.
-4. **31 paket kontrolü** yapar: mimariler, minimum macOS, imza, hardened runtime, bağımlılıklar, DMG/ZIP bütünlüğü, betik sözdizimi.
+4. **32 paket kontrolü** yapar: mimariler, minimum macOS, imza, hardened runtime, bağımlılıklar, DMG/ZIP bütünlüğü, betik sözdizimi.
 
 Ek olarak kurulu uygulama üzerinde elle şunlar doğrulandı:
 

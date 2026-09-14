@@ -1,0 +1,39 @@
+SnapPaste açılmıyor mu? ("Apple doğrulayamadı / kötü amaçlı yazılım" uyarısı)
+==========================================================================
+
+Bu uyarı normaldir. SnapPaste ücretli bir Apple Developer hesabıyla noterize
+edilmediği için macOS; AirDrop, mesaj, e-posta veya indirme ile gelen kopyayı
+ilk açılışta engeller. Tek seferlik onay yeterlidir.
+
+Önce SnapPaste.app'i Applications klasörüne sürükleyin, sonra AŞAĞIDAKİ İKİ
+YOLDAN BİRİNİ uygulayın.
+
+
+YOL 1 — Terminal ile (en hızlısı)
+---------------------------------
+1. Terminal'i açın: ⌘ + Boşluk → "Terminal" yazın → Enter.
+2. Aşağıdaki satırı kopyalayıp Terminal'e yapıştırın ve Enter'a basın:
+
+   xattr -dr com.apple.quarantine /Applications/SnapPaste.app && open /Applications/SnapPaste.app
+
+Bu komut macOS'in genel güvenlik ayarlarını değiştirmez. Sadece bu uygulamanın
+"internetten geldi" etiketini kaldırır.
+
+
+YOL 2 — Sistem Ayarları ile (Terminal kullanmadan)
+--------------------------------------------------
+1. Applications klasöründe SnapPaste'e çift tıklayın. Uyarı çıkınca "Bitti"ye basın.
+2.  › Sistem Ayarları › Gizlilik ve Güvenlik bölümünü açın.
+3. Sayfanın altındaki "Güvenlik" kısmında "SnapPaste engellendi..." satırını
+   bulun ve yanındaki "Yine de Aç" düğmesine basın.
+4. Parolanızı veya Touch ID'nizi girin. Çıkan pencerede tekrar "Yine de Aç"a basın.
+
+
+SONRASI (tek seferlik)
+----------------------
+- Menü çubuğunda vizör simgesi belirir.
+- İlk ⇧⌥S'de macOS "Ekran ve Sistem Sesi Kaydı" izni ister:
+  Sistem Ayarları › Gizlilik ve Güvenlik › Ekran ve Sistem Sesi Kaydı ›
+  SnapPaste'i açın. macOS isterse "Çık ve Yeniden Aç"a basın.
+
+Kullanım:  ⇧⌥S → ekran görüntüsü al     ⌘V → yapıştır

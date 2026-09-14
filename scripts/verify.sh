@@ -47,7 +47,7 @@ MOUNT=$(mktemp -d)
 if hdiutil attach -quiet -readonly -nobrowse -mountpoint "$MOUNT" "$DMG"; then
     check "DMG içinde SnapPaste.app" test -x "$MOUNT/SnapPaste.app/Contents/MacOS/SnapPaste"
     check "DMG içindeki uygulamanın imzası geçerli" codesign --verify --strict "$MOUNT/SnapPaste.app"
-    check "DMG içinde Kur.command çalıştırılabilir" test -x "$MOUNT/Kur.command"
+    check "DMG içinde 'AÇILMAZSA BENİ OKU.txt'" test -s "$MOUNT/AÇILMAZSA BENİ OKU.txt"
     check "DMG içinde Applications kısayolu" test -L "$MOUNT/Applications"
     check "DMG içinde BENİOKU.md" test -s "$MOUNT/BENİOKU.md"
     hdiutil detach -quiet "$MOUNT"
@@ -62,6 +62,7 @@ check "ZIP açılıyor" unzip -q "$ZIP" -d "$UNZIP"
 check "ZIP'ten çıkan uygulamanın imzası geçerli" codesign --verify --strict "$UNZIP/SnapPaste.app"
 check "ZIP içinde install.sh" test -s "$UNZIP/install.sh"
 check "ZIP içinde README.md" test -s "$UNZIP/README.md"
+check "ZIP içinde 'AÇILMAZSA BENİ OKU.txt'" test -s "$UNZIP/AÇILMAZSA BENİ OKU.txt"
 rm -rf "$UNZIP"
 
 echo "Betikler"
